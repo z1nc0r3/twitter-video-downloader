@@ -24,3 +24,5 @@ This is a Python script that allows you to download videos from Twitter. It take
 
    ```bash
    python twitter_downloader.py
+
+_This is script is totally depends on the website : **https://twittervid.com**_
