@@ -1,6 +1,8 @@
+import os
 import requests
 import re
 from tqdm import tqdm
+from pathlib import Path
 
 def extract_video_id(url):
     pattern = r"status/(\d+)"
@@ -15,8 +17,10 @@ def download_video(url, file_name):
     total_size = int(response.headers.get('content-length', 0))
     block_size = 1024
     progress_bar = tqdm(total=total_size, unit='B', unit_scale=True)
+    
+    download_path = os.path.join(Path.home(), 'Downloads', file_name)
 
-    with open(file_name, 'wb') as file:
+    with open(download_path, 'wb') as file:
         for data in response.iter_content(block_size):
             progress_bar.update(len(data))
             file.write(data)
@@ -26,7 +30,6 @@ def download_video(url, file_name):
 
 def download_twitter_video(url, file_name):
     video_id = extract_video_id(url)
-    print(video_id)
     api_url = f'https://api.twitterpicker.com/tweet/mediav2?id={video_id}'
 
     response = requests.get(api_url)
