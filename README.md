@@ -20,10 +20,12 @@ This is a Python script that allows you to download videos from Twitter. It take
    ```bash
    cd twitter-video-downloader
 
-3. Run the script
+3. Run the script with the video URL as the argument
 
    ```bash
-   python twitter_downloader.py
+   python twitter_downloader.py {video url}
+
+   eg :- python twitter_downloader.py https://twitter.com/TrollFootball/status/1679583964770754560?s=20
 
 ## Note
 
