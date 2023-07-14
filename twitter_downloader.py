@@ -1,10 +1,18 @@
 import os
-import requests
 import re
+import requests
 from tqdm import tqdm
 from pathlib import Path
 
-def extract_video_id(url):
+def extract_video_id(url) -> None | int:
+    """Extract the video ID from a given url
+
+    Args:
+        url (str): The URL to extract the video from.
+
+    Returns (None | int): Either an integer if there is a url or None.
+    """
+
     pattern = r"status/(\d+)"
     match = re.search(pattern, url)
     if match:
@@ -12,7 +20,15 @@ def extract_video_id(url):
     else:
         return None
 
-def download_video(url, file_name):
+
+def download_video(url, file_name) -> None:
+    """Download a video from a URL into a filename.
+
+    Args:
+        url (str): The URL to download
+        file_name (str): The file name or path to save the video to.
+    """
+
     response = requests.get(url, stream=True)
     total_size = int(response.headers.get('content-length', 0))
     block_size = 1024
@@ -28,7 +44,16 @@ def download_video(url, file_name):
     progress_bar.close()
     print('Video downloaded successfully!')
 
+
 def download_twitter_video(url, file_name):
+    """Extract a video ID to download into a file
+
+    Args:
+        url (str): The URL to download from
+        file_name (str): The file name to save the video to.
+    """
+
+
     video_id = extract_video_id(url)
     api_url = f'https://api.twitterpicker.com/tweet/mediav2?id={video_id}'
 
