@@ -29,6 +29,14 @@ jobs:
     - name: Lint with black
       run: |
         black --quiet --safe -l 120 .
+
     - name: Test with pytest
       run: |
-        coverage run -m pytest --verbose --strict -p no:cacheprovider --showlocals -strict-markers -W ignore --cov . --cache-clear
+        coverage run -m pytest --verbose -p no:cacheprovider --showlocals -W ignore --cov . --cov-report=xml
+          
+    - name: Upload coverage reports to Codecov
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: coverage.xml
+        # CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
