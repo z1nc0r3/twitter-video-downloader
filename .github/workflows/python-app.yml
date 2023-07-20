@@ -31,4 +31,4 @@ jobs:
         black --quiet --safe -l 120 .
     - name: Test with pytest
       run: |
-        coverage run -m pytest --strict -p no:cacheprovider --showlocals -sv -strict-markers -W ignore --cov . --cache-clear
+        coverage run -m pytest --verbose --strict -p no:cacheprovider --showlocals -strict-markers -W ignore --cov . --cache-clear
