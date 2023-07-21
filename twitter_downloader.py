@@ -71,12 +71,12 @@ def download_twitter_video(url, file_name):
 
 
 if len(sys.argv) < 2:
-    print('Please provide the Twitter video URL as a command line argument.')
+    print("Please provide the Twitter video URL as a command line argument.")
 else:
     twitter_video_url = sys.argv[1]
     video_id = extract_video_id(twitter_video_url)
     if video_id:
-        file_name = f'{video_id}.mp4'
+        file_name = f"{video_id}.mp4"
         download_twitter_video(twitter_video_url, file_name)
     else:
-        print('Invalid Twitter video URL provided.')
+        print("Invalid Twitter video URL provided.")

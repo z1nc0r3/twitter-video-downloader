@@ -5,18 +5,16 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "tests" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "tests" ]
 
 permissions:
   contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -26,14 +24,19 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+    - name: Lint with black
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        black --quiet --safe -l 120 .
+
     - name: Test with pytest
       run: |
-        pytest
+        coverage run -m pytest --verbose -p no:cacheprovider --showlocals -W ignore --cov . --cov-report=xml
+          
+    - name: Upload coverage reports to Codecov
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: coverage.xml
+        # CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
