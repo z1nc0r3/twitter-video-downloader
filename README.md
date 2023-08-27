@@ -1,5 +1,18 @@
-# Twitter Video Downloader
+# Twitter Video Downloader _[DEPRECATED]_
 
+⚠️ _Deprecation Notice_ ⚠️
+
+📢 _Attention users of the Twitter Video Downloader tool!_ 📢
+
+_We regret to inform you that the current version of the Twitter Video Downloader, which relies on the TwitterVid.com site, is no longer functional due to recent updates on the TwitterVid.com website._
+
+_As a result, you will no longer be able to use this tool to download videos from Twitter. We understand the convenience this tool brought to your video downloading experience, and we apologize for any inconvenience caused by this discontinuation._
+
+_We recommend exploring alternative solutions to fulfill your Twitter video downloading needs. There are several other tools and scripts available online that might offer similar functionality. However, please ensure that you only use tools that are safe and respect the terms of service of the websites you are downloading content from._
+
+_Thank you for your understanding and for being a user of our Twitter Video Downloader tool. If you have any questions or need assistance in finding alternative solutions, please feel free to reach out to us._
+
+---
 This is a Python script that allows you to download videos from Twitter. It takes a Twitter video URL as input, extracts the video ID, and downloads the video using the URL with the highest bitrate.
 
 ## Prerequisites
