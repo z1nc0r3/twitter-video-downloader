@@ -1,7 +1,9 @@
 # Twitter Video Downloader 2.0
 
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
 ---
-This is a Python script that allows you to download videos from X aka Twitter using terminal. It takes a Twitter post URL as input, extracts the highest quality video url, and downloads the video.
+This is a Python script that allows you to download videos from X aka Twitter using the terminal. It takes a Twitter post URL as an input, extracts the highest-quality video URL, and downloads the video.
 
 ## Prerequisites
 
