@@ -3,33 +3,17 @@ import os
 import re
 
 import requests
+import bs4
 
 from tqdm import tqdm
 from pathlib import Path
-
-
-def extract_video_id(url) -> None | int:
-    """Extract the video ID from a given url
-
-    Args:
-        url (str): The URL to extract the video from.
-
-    Returns (None | int): Either an integer if there is a url or None.
-    """
-
-    pattern = r"status/(\d+)"
-    match = re.search(pattern, url)
-    if match:
-        return match.group(1)
-    else:
-        return None
 
 
 def download_video(url, file_name) -> None:
     """Download a video from a URL into a filename.
 
     Args:
-        url (str): The URL to download
+        url (str): The video URL to download
         file_name (str): The file name or path to save the video to.
     """
 
@@ -49,34 +33,32 @@ def download_video(url, file_name) -> None:
     print("Video downloaded successfully!")
 
 
-def download_twitter_video(url, file_name):
-    """Extract a video ID to download into a file
+def download_twitter_video(url):
+    """Extract the highest quality video url to download into a file
 
     Args:
-        url (str): The URL to download from
-        file_name (str): The file name to save the video to.
+        url (str): The twitter post URL to download from
     """
 
-    video_id = extract_video_id(url)
-    api_url = f"https://api.twitterpicker.com/tweet/mediav2?id={video_id}"
+    api_url = f"https://twitsave.com/info?url={url}"
 
     response = requests.get(api_url)
-    data = response.json()
-
-    videos = data["media"]["videos"][0]["variants"]
-    highest_bitrate = max(videos, key=lambda x: int(x.get("bitrate", 0) or 0))
-    video_url = highest_bitrate["url"]
-
-    download_video(video_url, file_name)
+    data = bs4.BeautifulSoup(response.text, "html.parser")
+    download_button = data.find_all("div", class_="origin-top-right")[0]
+    quality_buttons = download_button.find_all("a")
+    highest_quality_url = quality_buttons[0].get("href") # Highest quality video url
+    
+    file_name = data.find_all("div", class_="leading-tight")[0].find_all("p", class_="m-2")[0].text # Video file name
+    file_name = re.sub(r"[^a-zA-Z0-9]+", ' ', file_name).strip() + ".mp4" # Remove special characters from file name
+    
+    download_video(highest_quality_url, file_name)
 
 
 if len(sys.argv) < 2:
-    print("Please provide the Twitter video URL as a command line argument.")
+    print("Please provide the Twitter video URL as a command line argument.\nEg: python twitter_downloader.py <URL>")
 else:
-    twitter_video_url = sys.argv[1]
-    video_id = extract_video_id(twitter_video_url)
-    if video_id:
-        file_name = f"{video_id}.mp4"
-        download_twitter_video(twitter_video_url, file_name)
+    url = sys.argv[1]
+    if url:
+        download_twitter_video(url)
     else:
         print("Invalid Twitter video URL provided.")
