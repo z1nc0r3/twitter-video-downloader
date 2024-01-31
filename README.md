@@ -2,6 +2,8 @@
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fz1nc0r3%2Ftwitter-video-downloader&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 ---
 This is a Python script that allows you to download videos from X aka Twitter using the terminal. It takes a Twitter post URL as an input, extracts the highest-quality video URL, and downloads the video.
 
