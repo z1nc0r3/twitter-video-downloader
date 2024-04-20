@@ -19,7 +19,7 @@ This is a Python script that allows you to download videos from X aka Twitter us
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/twitter-video-downloader.git
+   git clone https://github.com/z1nc0r3/twitter-video-downloader
 
 2. Navigate to the project directory:
 
